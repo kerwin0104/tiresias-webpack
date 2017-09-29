@@ -16,7 +16,7 @@ var config = {
     publicPath: "/static/assets", // string
     // the url to the output directory resolved relative to the HTML page
 
-    library: "MyLibrary", // string,
+    library: "my_lib", // string,
     // the name of the exported library
 
     libraryTarget: "umd", // universal module definition
@@ -31,20 +31,19 @@ var config = {
     rules: [
       // rules for modules (configure loaders, parser options, etc.)
 
-      {
-        test: /\.html$/,
-
-        use: [
-          // apply multiple loaders and options
-          "htmllint-loader",
-          {
-            loader: "html-loader",
-            options: {
-              /* ... */
-            }
-          }
-        ]
-      }
+      // {
+      //   test: /\.html$/,
+      //   use: [
+      //     // apply multiple loaders and options
+      //     "htmllint-loader",
+      //     {
+      //       loader: "html-loader",
+      //       options: {
+      //         /* ... */
+      //       }
+      //     }
+      //   ]
+      // }
     ],
 
     /* Advanced module configuration (click to show) */
@@ -128,8 +127,6 @@ function buildConfig (baseConfig, callback) {
   let rootDir = baseConfig.rootDir
   let distDir = baseConfig.distDir 
 
-  // console.log(baseConfig)
-  // console.log(rootDir, distDir)
   config.output.path = path.join(rootDir, distDir)
 
   callback(config)
