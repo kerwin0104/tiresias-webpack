@@ -8,19 +8,21 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const globPath = path.join(__dirname, '../src/pages/**/*.*')
 const pageRootPath = path.join(__dirname, '../src/pages/')
 
-plugins.push(
-  new CleanWebpackPlugin(['dist'], {
-          root: path.join(__dirname, '..'), 　　//  根目录
-          verbose:  true,         　　　　　　　//  在控制台输出信息
-          dry:      false         　　　　　　　//  只删除文件
-      }
-  )
-)
 
 function buildConfig (callback) {
   getBaseConfig(config => {
     const plugins = config.plugins || []
     const entry = config.entry || {}
+
+    plugins.push(
+      new CleanWebpackPlugin(['dist'], {
+              root: path.join(__dirname, '..'), 　　//  根目录
+              verbose:  true,         　　　　　　　//  在控制台输出信息
+              dry:      false         　　　　　　　//  只删除文件
+          }
+      )
+    )
+
     var processPromise= []
 
     glob(globPath, (err, filePaths) => {
