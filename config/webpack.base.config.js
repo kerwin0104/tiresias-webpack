@@ -6,7 +6,7 @@ var config = {
   output: {
     // options related to how webpack emits results
 
-    path: path.join(__dirname, "../dist"), // string
+    path: path.join(__dirname, '../dist'), // string
     // the target directory for all output files
     // must be an absolute path (use the Node.js path module)
 
@@ -89,7 +89,7 @@ var config = {
   // enhance debugging by adding meta info for the browser devtools
   // source-map most detailed at the expense of build speed.
 
-  context: __dirname, // string (absolute path!)
+  context: path.join(__dirname, '..'), // string (absolute path!)
   // the home directory for webpack
   // the entry and module.rules.loader option
   //   is resolved relative to this directory
@@ -124,11 +124,14 @@ var config = {
   /* Advanced configuration (click to show) */
 }
 
+function buildConfig (baseConfig, callback) {
+  let rootDir = baseConfig.rootDir
+  let distDir = baseConfig.distDir 
 
+  // console.log(baseConfig)
+  // console.log(rootDir, distDir)
+  config.output.path = path.join(rootDir, distDir)
 
-
-
-function buildConfig (callback) {
   callback(config)
 }
 

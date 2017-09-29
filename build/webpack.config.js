@@ -1,25 +1,27 @@
-const getBaseConfig = require('../config/webpack.base.config.js')
+const getWebpackgeBaseConfig = require('../config/webpack.base.config.js')
 const path = require('path')
 const glob = require('glob')
 const fs = require('fs')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const globPath = path.join(__dirname, '../src/pages/**/*.*')
-const pageRootPath = path.join(__dirname, '../src/pages/')
+function buildConfig (baseConfig, callback) {
+  const rootDir = baseConfig.rootDir
+  const pageDir = path.join(rootDir, baseConfig.pageDir)
+  const resourceDir = path.join(rootDir, baseConfig.resourceDir)
+  const actionDir = path.join(rootDir, baseConfig.actionDir)
+  const globPath = path.join(pageDir, './**/*.*')
 
-
-function buildConfig (callback) {
-  getBaseConfig(config => {
-    const plugins = config.plugins || []
+  getWebpackgeBaseConfig(baseConfig, config => {
     const entry = config.entry || {}
+    const plugins = config.plugins || []
 
     plugins.push(
       new CleanWebpackPlugin(['dist'], {
-              root: path.join(__dirname, '..'), 　　//  根目录
-              verbose:  true,         　　　　　　　//  在控制台输出信息
-              dry:      false         　　　　　　　//  只删除文件
-          }
+          root: rootDir, 　　  //  根目录
+          verbose:  true,         　　　　　　　//  在控制台输出信息
+          dry:      false         　　　　　　　//  只删除文件
+        }
       )
     )
 
@@ -27,16 +29,24 @@ function buildConfig (callback) {
 
     glob(globPath, (err, filePaths) => {
       filePaths.forEach(filePath => {
-        let relativeFilePath = path.relative(pageRootPath, filePath)
+        let relativeFilePath = path.relative(pageDir, filePath)
         let pathInfo = path.parse(relativeFilePath)
+
+        // console.log('pageDir:' + pageDir)
+        // console.log('filePath:' + filePath)
+        // console.log('relativeFilePath:' + relativeFilePath)
           
         processPromise.push(
           new Promise((resolve, reject) => {
             let scriptFile = path.join(
-                __dirname,
-                '../src/scripts',
-                path.dirname(relativeFilePath), pathInfo.name + '.js'
+                resourceDir,
+                path.dirname(relativeFilePath), 
+                pathInfo.name, 
+                './main.js'
             )
+
+            // console.log(scriptFile)
+
             fs.stat(scriptFile, (err, stat) => {
               // add to entry
               if (!err) {
@@ -65,6 +75,8 @@ function buildConfig (callback) {
 
       Promise.all(processPromise)
         .then(() => {
+          config.entry = entry
+          config.plugins = plugins
           callback(config)
         })
     })

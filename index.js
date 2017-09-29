@@ -1,8 +1,16 @@
 const webpack = require("webpack")
-const webpackConfig = require('./build/webpack.config.js')
+const getWebpackConfig = require('./build/webpack.config.js')
 
-webpackConfig(config => {
-  webpack(config, (err, stats) => {
+const baseConfig = {
+  rootDir: __dirname,
+  pageDir: 'src/pages',
+  resourceDir: 'src/resources',
+  actionDir: 'src/actions',
+  distDir: 'dist'
+}
+
+getWebpackConfig(baseConfig, webpackConfig => {
+  webpack(webpackConfig, (err, stats) => {
     if (err || stats.hasErrors()) {
       console.log(err)
       stats.compilation.errors.forEach(item => {
