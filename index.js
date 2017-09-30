@@ -5,6 +5,7 @@ const baseConfig = {
   rootDir: __dirname,
   pageDir: 'src/pages',
   resourceDir: 'src/resources',
+  staticDir: 'src/static',
   actionDir: 'src/actions',
   distDir: 'dist'
 }

@@ -10,10 +10,10 @@ var config = {
     // the target directory for all output files
     // must be an absolute path (use the Node.js path module)
 
-    filename: "static/assets/[name].[hash].js", // string
+    filename: "resources/js/[name].js", // string
     // the filename template for entry chunks
 
-    publicPath: "/static/assets", // string
+    publicPath: "/", // string
     // the url to the output directory resolved relative to the HTML page
 
     library: "my_lib", // string,
@@ -119,8 +119,7 @@ var config = {
   plugins: [],
   // list of additional plugins
 
-
-  /* Advanced configuration (click to show) */
+  /* Advanced configuration */
 }
 
 function buildConfig (baseConfig, callback) {
