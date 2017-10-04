@@ -56,13 +56,14 @@ function buildConfig (baseConfig, callback) {
             let scriptFile = path.join(
                 resourceDir,
                 path.dirname(relativeFilePath), 
-                pathInfo.name, 
                 './main.js'
             )
 
             fs.stat(scriptFile, (err, stat) => {
               // add to entry
-              if (!err) {
+              if (err) {
+                console.warn(`scripts: [${scriptFile }] not found`)
+              } else {
                 entry[pathInfo.name] = scriptFile 
               }
 
