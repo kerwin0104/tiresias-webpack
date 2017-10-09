@@ -21,9 +21,9 @@ function buildConfig (baseConfig, callback) {
     // clean dist dirctory
     plugins.push(
       new CleanWebpackPlugin(['dist'], {
-          root: rootDir, 　　  //  根目录
-          verbose:  true,         　　　　　　　//  在控制台输出信息
-          dry:      false         　　　　　　　//  只删除文件
+          root: rootDir, 　 　    //  根目录
+          verbose:  true,  　　   //  在控制台输出信息
+          dry:      false  　　   //  只删除文件
         }
       )
     )

@@ -10,7 +10,7 @@ const baseConfig = {
   distDir: 'dist'
 }
 
-getWebpackConfig(baseConfig, webpackConfig => {
+function execWebpakc (webpackConfig) {
   webpack(webpackConfig, (err, stats) => {
     if (err || stats.hasErrors()) {
       console.log(err)
@@ -19,5 +19,21 @@ getWebpackConfig(baseConfig, webpackConfig => {
       })
     }
   })
-})
+}
+
+var tiresiasWebpack = function (config, callback) {
+  config = Object.assign({}, baseConfig, config)
+  getWebpackConfig(baseConfig, webpackConfig => {
+    if (typeof callback === 'function') {
+      var retConfig = callback(webpackConfig)
+      if (typeof retConfig === 'object') {
+        webpackConfig = retConfig
+      }
+    }
+    execWebpakck(webpackConfig)
+  })
+}
+
+module.exports = tiresiasWebpack
+
 
