@@ -10,7 +10,7 @@ const baseConfig = {
   distDir: 'dist'
 }
 
-function execWebpakc (webpackConfig) {
+function execWebpack (webpackConfig) {
   webpack(webpackConfig, (err, stats) => {
     if (err || stats.hasErrors()) {
       console.log(err)
@@ -30,7 +30,7 @@ var tiresiasWebpack = function (config, callback) {
         webpackConfig = retConfig
       }
     }
-    execWebpakck(webpackConfig)
+    execWebpack(webpackConfig)
   })
 }
 
