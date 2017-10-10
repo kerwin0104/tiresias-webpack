@@ -20,10 +20,10 @@ function buildConfig (baseConfig, callback) {
 
     // clean dist dirctory
     plugins.push(
-      new CleanWebpackPlugin(['dist'], {
-          root: rootDir, 　 　    //  根目录
-          verbose:  true,  　　   //  在控制台输出信息
-          dry:      false  　　   //  只删除文件
+      new CleanWebpackPlugin(['*'], {
+          root: baseConfig.distDir,   //  根目录
+          verbose:  true,  　　       //  在控制台输出信息
+          dry:      false  　　       //  只删除文件
         }
       )
     )
@@ -34,12 +34,12 @@ function buildConfig (baseConfig, callback) {
         {
           context: actionDir,
           from: '**/*',
-          to: path.join(rootDir, baseConfig.distDir, 'controllers')
+          to: path.join(baseConfig.distDir, 'controllers')
         },
         {
           context: staticDir,
           from: '**/*',
-          to: path.join(rootDir, baseConfig.distDir, 'static')
+          to: path.join(baseConfig.distDir, 'static')
         }
       ])
     )

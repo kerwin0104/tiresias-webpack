@@ -126,7 +126,7 @@ function buildConfig (baseConfig, callback) {
   let rootDir = baseConfig.rootDir
   let distDir = baseConfig.distDir 
 
-  config.output.path = path.join(rootDir, distDir)
+  config.output.path = distDir
 
   callback(config)
 }

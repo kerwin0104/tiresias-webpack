@@ -1,5 +1,6 @@
 const webpack = require("webpack")
 const getWebpackConfig = require('./build/webpack.config.js')
+const path = require('path')
 
 const baseConfig = {
   rootDir: __dirname,
@@ -7,7 +8,7 @@ const baseConfig = {
   resourceDir: 'src/resources',
   staticDir: 'src/static',
   actionDir: 'src/actions',
-  distDir: 'dist'
+  distDir: path.join(__dirname, 'dist')
 }
 
 function execWebpack (webpackConfig) {
