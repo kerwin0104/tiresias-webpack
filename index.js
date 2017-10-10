@@ -11,7 +11,7 @@ const baseConfig = {
 }
 
 function execWebpack (webpackConfig) {
-  webpack(webpackConfig, (err, stats) => {
+  return webpack(webpackConfig, (err, stats) => {
     if (err || stats.hasErrors()) {
       console.log(err)
       stats.compilation.errors.forEach(item => {
@@ -21,7 +21,7 @@ function execWebpack (webpackConfig) {
   })
 }
 
-var tiresiasWebpack = function (config, callback) {
+var tiresiasWebpack = function (config, callback, endCallback) {
   config = Object.assign({}, baseConfig, config)
   getWebpackConfig(baseConfig, webpackConfig => {
     if (typeof callback === 'function') {
@@ -30,7 +30,10 @@ var tiresiasWebpack = function (config, callback) {
         webpackConfig = retConfig
       }
     }
-    execWebpack(webpackConfig)
+    var compiler = execWebpack(webpackConfig)
+    if (typeof endCallback === 'function') {
+      endCallback(compiler)
+    }
   })
 }
 
