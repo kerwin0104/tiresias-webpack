@@ -13,18 +13,20 @@ const baseConfig = {
 
 function execWebpack (webpackConfig) {
   return webpack(webpackConfig, (err, stats) => {
-    if (err || stats.hasErrors()) {
-      console.log(err)
-      stats.compilation.errors.forEach(item => {
-        console.log(item)
-      })
-    }
+    if (err) throw err
+    process.stdout.write(stats.toString({
+      colors: true,
+      modules: false,
+      children: false,
+      chunks: false,
+      chunkModules: false
+    }) + '\n')
   })
 }
 
 var tiresiasWebpack = function (config, callback, endCallback) {
   config = Object.assign({}, baseConfig, config)
-  getWebpackConfig(baseConfig, webpackConfig => {
+  getWebpackConfig(config, webpackConfig => {
     if (typeof callback === 'function') {
       var retConfig = callback(webpackConfig)
       if (typeof retConfig === 'object') {
