@@ -40,6 +40,7 @@ var tiresiasWebpack = function (config, callback, endCallback) {
   })
 }
 
-module.exports = tiresiasWebpack
+tiresiasWebpack.exec = execWebpack
 
+module.exports = tiresiasWebpack
 
